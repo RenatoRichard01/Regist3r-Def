@@ -1,0 +1,33 @@
+body{
+  font-family: Arial, Verdana, Helvetica, sans-serif;
+  color: #404c51;
+  margin:0;
+}
+.col-telefone-header {
+  width: 200px;
+}
+.colunas{
+  height: 50px;
+}
+.col-acao-header {
+  width: 120px;
+}
+
+.col-acoes .p-button {
+  margin: 1px;
+}
+.tabel-func{
+  width: 95%;
+  margin:auto;
+}
+
+.adiciona{
+  margin-left:90%;
+}
+.buttonAc{
+  height: 30px;
+}
+.dropDown{
+  width: 300px;
+  height: 300px;
+}

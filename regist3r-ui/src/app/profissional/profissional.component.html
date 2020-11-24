@@ -1,0 +1,123 @@
+<p-toast></p-toast>
+<div class="container">
+  <div style="margin-top: 10px; margin-left:10px;">
+    <form #prof="ngForm" autocomplete="off">
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col">
+          <label for="nome">Nome</label>
+          <input id="nome" type="text" pInputText
+            name="nome" placeholder="Insira seu nome"
+            [(ngModel)]="prof.nome" >
+        </div>
+        <div class="p-field p-col">
+          <label for="endereco">Endereco</label>
+          <input id="endereco"  name="endereco" type="text" pInputText
+          [(ngModel)]="prof.endereco"  placeholder="Insira um endereco">
+        </div>
+      </div>
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col">
+          <label for="telefone">Celular</label>
+          <p-inputMask [(ngModel)]="prof.celular" mask="(99)99999-9999"
+          [ngModelOptions]="{standalone: true}" placeholder="(99)99999-9999"></p-inputMask>
+        </div>
+        <div class="p-field p-col">
+          <label for="telefone">Residencial</label>
+          <p-inputMask [(ngModel)]="prof.residencial" mask="(99)99999-9999"
+          [ngModelOptions]="{standalone: true}" placeholder="(99)99999-9999"></p-inputMask>
+        </div>
+        <div class="p-field p-col">
+          <label for="funcao">Função</label>
+          <input id="funcao" type="text" pInputText  name="funcao"
+          [(ngModel)]="prof.funcao" required
+          placeholder="Insira uma função">
+        </div>
+      </div>
+      <div style="margin-top: 5px">
+        <p-button type="submit" label="Adicionar" (click)="adicionar(prof)"></p-button>
+      </div>
+    </form>
+  </div>
+
+  <br>
+  <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" pRipple></p-confirmDialog>
+
+  <div class="tabel-func">
+    <div class="ui-g-12">
+      <p-table [value]="dataset" selectionMode="single" dataKey="code" [paginator]="true" [rows]="5" #tabela
+      [responsive]="true" [globalFilterFields]="['nome','endereco','funcao']">
+      <ng-template pTemplate="caption">
+        <div class="p-d-flex p-ai-center p-jc-between" style="height:20px ;">
+          <h5 class="p-m-0">Profissionais</h5>
+          <span class="p-input-icon-left">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text"
+                 placeholder="Search..." (input)="tabela.filterGlobal($event.target.value, 'contains')"/>
+          </span>
+        </div>
+      </ng-template>
+
+        <ng-template pTemplate="header">
+          <tr class="colunas">
+            <th>Nome</th>
+            <th>Endereço</th>
+            <th class="col-telefone-header">Telefone</th>
+            <th class="col-data-header">Função</th>
+            <th class="col-acao-header">Ações</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-dataset>
+          <tr>
+            <td>{{ dataset.nome }}</td>
+            <td>{{ dataset.endereco }}</td>
+            <td class="col-telefone-content">{{ dataset.celular }} / {{dataset.residencial}}</td>
+            <td class="col-funcao-content">{{ dataset.funcao }}</td>
+            <td class="col-acoes">
+              <a pButton icon="pi pi-pencil" class="buttonAc" pTooltip="Editar" tooltipPosition="top"
+              (click)="editProf(dataset)"></a>
+              <button pButton (click)="confirmaDell(dataset)" icon="pi pi-trash" class="buttonAc"></button>
+            </td>
+          </tr>
+
+          <p-dialog [(visible)]="profDialog" [style]="{width: '450px'}" header="Prof Details" [modal]="true" styleClass="p-fluid">
+            <ng-template pTemplate="content">
+              <div class="p-fluid p-formgrid p-grid">
+                <div class="p-field p-col">
+                  <label for="nome">Nome</label>
+                  <input id="nome" type="text" pInputText
+                    name="nome" [(ngModel)]="dataset.nome">
+                </div>
+                <div class="p-field p-col">
+                  <label for="endereco">Endereco</label>
+                  <input id="endereco"  name="endereco" type="text" pInputText
+                  [(ngModel)]="dataset.endereco" >
+                </div>
+              </div>
+              <div class="p-fluid p-formgrid p-grid">
+                <div class="p-field p-col">
+                  <label for="telefone">Telefone</label>
+                  <input id="telefone" type="text" pInputText name="celular"
+                  [(ngModel)]="dataset.celular" >
+                </div>
+                <div class="p-field p-col">
+                  <label for="funcao">Função</label>
+                  <input id="funcao" type="text" pInputText  name="funcao"
+                  [(ngModel)]="dataset.funcao">
+                </div>
+              </div>
+              <div style="margin-top: 5px">
+                <p-button type="submit" label="Pesquisar" (click)="editar(dataset)"></p-button>
+              </div>
+            </ng-template>
+          </p-dialog>
+
+        </ng-template>
+
+
+      </p-table>
+    </div>
+  </div>
+</div>
+
+
+

@@ -1,0 +1,62 @@
+<p-toast></p-toast>
+
+<div class="container">
+  <div style="margin-top: 20px; ">
+    <div class=" p-formgrid p-grid">
+
+      <form #relac="ngForm" autocomplete="off">
+        <div class="p-fluid p-field p-col">
+          <p-dropdown [options]="dataset"  optionLabel="nome"
+          [showClear]="true" placeholder="Selecione um profissional"
+          [(ngModel)]="relac.idProfissional" [ngModelOptions]="{standalone: true}"></p-dropdown>
+        </div>
+        <div class="p-fluid  p-field p-col" >
+          <p-dropdown [options]="dataEstab"  optionLabel="nome"
+          [showClear]="false" placeholder="Selecione um estabelecimento"
+          [(ngModel)]="relac.idEstab" [ngModelOptions]="{standalone: true}"></p-dropdown>
+        </div>
+
+        <div style="margin: 5px">
+          <p-button type="submit" label="Vincular" (click)="vincular(relac.idEstab.id, relac.idProfissional.id)"></p-button>
+        </div>
+      </form>
+
+    </div>
+
+
+    <div class="tabel-func">
+      <div class="ui-g-12">
+        <p-table [value]="dataEstabGet" selectionMode="single" dataKey="code" [paginator]="true" [rows]="5" #tabela
+        [responsive]="true" [globalFilterFields]="['nome','profissional.nome']">
+          <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between" style="height:20px ;">
+                <h5 class="p-m-0">Relacionamentos</h5>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text"
+                       placeholder="Search..." (input)="tabela.filterGlobal($event.target.value, 'contains')"/>
+                </span>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr class="colunas">
+              <th>Nome Profissional</th>
+              <th>Estabelecimento</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-dataEstab>
+            <tr>
+              <td>{{dataEstab.profissional.nome}}</td>
+              <td>{{dataEstab.nome}}</td>
+            </tr>
+
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
